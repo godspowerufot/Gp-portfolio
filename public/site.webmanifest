@@ -1,0 +1,17 @@
+{
+  "name": "Godspower Ufot",
+  "short_name": "GP",
+  "description": "Frontend Engineer & Blockchain Developer portfolio",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#0A0A0A",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "500x500",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
