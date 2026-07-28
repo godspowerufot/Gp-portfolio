@@ -4,11 +4,11 @@ import Reveal from '../components/Reveal.jsx';
 const chapters = [
   {
     label: '01 — Who I am',
-    text: "I'm Godspower Ufot — a frontend engineer and product builder based in Nigeria. I design and ship interfaces that feel deliberate: clear hierarchy, calm motion, and systems that hold up once real users arrive.",
+    text: "I'm Godspower Ufot, a frontend engineer and blockchain engineer. I love team communication and solving hard problems. I design and ship interfaces that feel deliberate: clear hierarchy, calm motion, and systems that hold up once real users arrive.",
   },
   {
     label: '02 — What I build',
-    text: "My work sits at the intersection of product and engineering. Over the past few years I've built and led frontend work across AI tools, Web3 dashboards, fintech SaaS, and internal platforms — from early prototypes through production releases.",
+    text: "My work sits at the intersection of product and engineering. I build audited smart contracts that work hand in hand with dApps and clean frontend experiences. Over the past few years I've shipped AI tools, Web3 products, and internal platforms — from early prototypes through production releases.",
   },
   {
     label: '03 — How I think',
@@ -27,7 +27,7 @@ const chapters = [
 const entranceLines = [
   { text: 'Stepping into the work.', delay: 400 },
   { text: 'Godspower Ufot', delay: 1600, large: true },
-  { text: 'Frontend engineer · Product builder · Nigeria', delay: 2800 },
+  { text: 'Frontend engineer · Blockchain engineer', delay: 2800 },
   { text: 'A quiet walk through who I am, what I build, and how I think.', delay: 3900 },
 ];
 
@@ -498,21 +498,21 @@ export default function About() {
             <FadeWords text="About" className="text-sm text-muted mb-6" wordDelay={60} />
 
             <FadeWords
-              text="I'm Godspower Ufot, a frontend engineer focused on building beautiful interfaces and useful products."
+              text="I'm Godspower Ufot, a frontend engineer and blockchain engineer focused on building beautiful interfaces and useful products."
               className="text-[clamp(22px,2.8vw,32px)] font-medium tracking-tight leading-snug text-ink"
               delay={100}
               wordDelay={38}
             />
 
             <FadeWords
-              text="Over the past few years I've built products across AI, blockchain, fintech and SaaS, leading frontend teams and shipping production-ready applications."
+              text="I build audited smart contracts that work hand in hand with dApps and clean frontend. Over the past few years I've shipped products across AI, blockchain, and SaaS, leading teams and delivering production-ready applications."
               className="mt-7 text-[clamp(16px,1.7vw,18px)] text-muted leading-relaxed"
               delay={180}
               wordDelay={30}
             />
 
             <FadeWords
-              text="I enjoy turning complex ideas into simple experiences."
+              text="I love team communication, solving hard problems, and turning complex ideas into simple experiences."
               className="mt-5 text-[clamp(16px,1.7vw,18px)] text-muted leading-relaxed"
               delay={240}
               wordDelay={36}
