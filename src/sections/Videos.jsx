@@ -7,7 +7,7 @@ const videos = [
     title: 'Sparkgas',
     description:
       'Monad gas sponsorship demo: claim free gas with a signature, sponsor-funded vault, and paymaster-style relayer flow.',
-    videoUrl: '/video/video1.mp4',
+    videoUrl: 'https://res.cloudinary.com/dsqi8gtz5/video/upload/v1785333933/video1_pcyuyv.mp4',
     tag: 'Web3',
   },
   {
@@ -15,7 +15,7 @@ const videos = [
     title: 'Somnia On-chain Reactivity',
     description:
       'How fast on-chain data can be read on Somnia: reactive blockchain reads in real time.',
-    videoUrl: '/video/video2.mp4',
+    videoUrl: 'https://res.cloudinary.com/dsqi8gtz5/video/upload/v1785333925/video2_vunwip.mp4',
     tag: 'Web3',
   },
   {
@@ -23,7 +23,7 @@ const videos = [
     title: 'PredictOS Copy Trading',
     description:
       'Hackathon build: copy trading tool I contributed to PredictOS for mirroring trades and following strategies.',
-    videoUrl: '/video/video3.mp4',
+    videoUrl: 'https://res.cloudinary.com/dsqi8gtz5/video/upload/v1785333931/video3_sipttz.mp4',
     tag: 'Hackathon',
   },
   {
@@ -31,7 +31,7 @@ const videos = [
     title: 'Project Showreel',
     description:
       'A compilation of shipped work across Web2 and Web3: interfaces, dashboards, and on-chain products in motion.',
-    videoUrl: '/video/video4.mp4',
+    videoUrl: 'https://res.cloudinary.com/dsqi8gtz5/video/upload/v1785334508/video4_x7rvuj.mp4',
     tag: 'Showreel',
   },
 ];
