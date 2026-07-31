@@ -3,32 +3,32 @@ import Reveal from '../components/Reveal.jsx';
 
 const chapters = [
   {
-    label: '01 — Who I am',
-    text: "I'm Godspower Ufot, a frontend engineer and blockchain engineer. I love team communication and solving hard problems. I design and ship interfaces that feel deliberate: clear hierarchy, calm motion, and systems that hold up once real users arrive.",
+    label: '01 , Who I am',
+    text: "I'm Godspower Ufot, a frontend engineer. Most of the time I ship product interfaces people actually use. I also dabble deeply in blockchain , enough to write audited smart contracts and connect them cleanly to dApps ",
   },
   {
-    label: '02 — What I build',
-    text: "My work sits at the intersection of product and engineering. I build audited smart contracts that work hand in hand with dApps and clean frontend experiences. Over the past few years I've shipped AI tools, Web3 products, and internal platforms — from early prototypes through production releases.",
+    label: '02 , What I build',
+    text: "My work sits at the intersection of product and engineering. I build audited smart contracts that work hand in hand with dApps and clean frontend experiences. Over the past few years I've shipped AI tools, Web3 products, and internal platforms  from early prototypes through production releases.",
   },
   {
-    label: '03 — How I think',
-    text: "I care about how products feel day to day. That means readable information density, thoughtful empty states, and components that scale without becoming noisy. Whether I'm shaping a trading surface, an on-chain analytics view, or a mentorship platform, the goal is the same: make complex systems feel simple.",
+    label: '03 , What I build',
+    text: "I've shipped real estate platforms, mentorship products, brand sites, and on-chain systems: audited contracts, presale flows, gas relayers, and the frontends that make them trustworthy. The same standards apply everywhere , readable UI, honest loading states, and engineering that holds up in production.",
   },
   {
-    label: '04 — How I lead',
-    text: "Beyond shipping features, I enjoy leading frontend teams — setting structure, raising the quality bar, and helping others move faster with clarity. I'm most at home when the brief is ambiguous and the outcome needs to be precise.",
+    label: '04 , Off the clock',
+    text: "Outside work I read, solve problems for fun, and play games. Reading keeps me curious. Problem solving is the same muscle I use in debugging and product decisions. Games taught me systems thinking , rules, feedback, and why small details change how something feels. That life shows up in how I build.",
   },
   {
-    label: '05 — Why work with me',
-    text: "If you're hiring for someone who can own the interface end to end — design sense, engineering craft, and product judgment — I bring calm execution and work that speaks for itself. Let's build something meaningful.",
+    label: '05 , Why work with me',
+    text: "If you need a frontend engineer who can own UI end to end, I bring craft and calm delivery. If you need someone who also understands EVM, wallets, and contract-to-dApp handoffs, that depth is already there. Either way: clear communication, ownership, and work that speaks for itself.",
   },
 ];
 
 const entranceLines = [
   { text: 'Stepping into the work.', delay: 400 },
   { text: 'Godspower Ufot', delay: 1600, large: true },
-  { text: 'Frontend engineer · Blockchain engineer', delay: 2800 },
-  { text: 'A quiet walk through who I am, what I build, and how I think.', delay: 3900 },
+  { text: 'Frontend engineer · Web2 & Web3', delay: 2800 },
+  { text: 'A quiet walk through who I am, how I work, and what I enjoy.', delay: 3900 },
 ];
 
 function AboutExperience({ onClose }) {
@@ -41,14 +41,15 @@ function AboutExperience({ onClose }) {
 
   const viewportRef = useRef(null);
   const rafRef = useRef(null);
+  const autoScrollingRef = useRef(false);
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [pausedByUser, setPausedByUser] = useState(false);
+  const [chromeHidden, setChromeHidden] = useState(false);
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     const show = requestAnimationFrame(() => setVisible(true));
-    // Soft veil settles, then threshold begins
     const t1 = setTimeout(() => setPhase('threshold'), 700);
     return () => {
       document.body.style.overflow = '';
@@ -58,7 +59,6 @@ function AboutExperience({ onClose }) {
     };
   }, []);
 
-  // Stagger entrance lines like walking through a doorway
   useEffect(() => {
     if (phase !== 'threshold') return;
 
@@ -68,7 +68,6 @@ function AboutExperience({ onClose }) {
 
     const toStory = setTimeout(() => {
       setPhase('story');
-      // Let the story stage settle before auto-scroll starts
       setTimeout(() => {
         setReady(true);
         setPlaying(true);
@@ -103,9 +102,13 @@ function AboutExperience({ onClose }) {
     const viewport = viewportRef.current;
     if (!viewport) return;
 
+    const isMobile = window.matchMedia('(max-width: 640px)').matches;
+    const speed = isMobile ? 0.72 : 0.68;
+
     const tick = () => {
       if (playing && !pausedByUser) {
-        viewport.scrollTop += 0.42;
+        autoScrollingRef.current = true;
+        viewport.scrollTop += speed;
         const max = viewport.scrollHeight - viewport.clientHeight;
         const pct = max > 0 ? Math.min(100, (viewport.scrollTop / max) * 100) : 100;
         setProgress(pct);
@@ -113,6 +116,9 @@ function AboutExperience({ onClose }) {
           setPlaying(false);
           setProgress(100);
         }
+        requestAnimationFrame(() => {
+          autoScrollingRef.current = false;
+        });
       }
       rafRef.current = requestAnimationFrame(tick);
     };
@@ -120,6 +126,13 @@ function AboutExperience({ onClose }) {
     rafRef.current = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafRef.current);
   }, [phase, ready, playing, pausedByUser]);
+
+  function takeManualControl() {
+    if (autoScrollingRef.current) return;
+    setPlaying(false);
+    setPausedByUser(true);
+    setChromeHidden(true);
+  }
 
   function handleClose() {
     setLeaving(true);
@@ -132,6 +145,7 @@ function AboutExperience({ onClose }) {
     if (!viewport) return;
     const max = viewport.scrollHeight - viewport.clientHeight;
     setProgress(max > 0 ? Math.min(100, (viewport.scrollTop / max) * 100) : 0);
+    if (!autoScrollingRef.current) takeManualControl();
   }
 
   function skipToStory() {
@@ -139,14 +153,21 @@ function AboutExperience({ onClose }) {
     setTimeout(() => {
       setReady(true);
       setPlaying(true);
+      setPausedByUser(false);
+      setChromeHidden(false);
     }, 400);
   }
 
   function restart() {
     const viewport = viewportRef.current;
-    if (viewport) viewport.scrollTop = 0;
+    if (viewport) {
+      autoScrollingRef.current = true;
+      viewport.scrollTop = 0;
+      autoScrollingRef.current = false;
+    }
     setProgress(0);
     setPausedByUser(false);
+    setChromeHidden(false);
     setPlaying(true);
   }
 
@@ -174,7 +195,7 @@ function AboutExperience({ onClose }) {
         </svg>
       </button>
 
-      {/* THRESHOLD — walking into a life */}
+      {/* THRESHOLD , walking into a life */}
       {phase !== 'story' && (
         <div
           className={`absolute inset-0 z-20 flex flex-col items-center justify-center px-8 transition-opacity duration-700 ease-(--ease-out-expo) ${
@@ -237,7 +258,7 @@ function AboutExperience({ onClose }) {
         </div>
       )}
 
-      {/* STORY — teleprompter */}
+      {/* STORY , teleprompter */}
       <div
         className={`absolute inset-0 flex flex-col transition-all duration-1000 ease-(--ease-out-expo) ${
           phase === 'story' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6 pointer-events-none'
@@ -250,7 +271,11 @@ function AboutExperience({ onClose }) {
               A walk through my work
             </h2>
           </div>
-          <div className="flex items-center gap-2 max-sm:hidden">
+          <div
+            className={`flex items-center gap-2 max-sm:hidden transition-opacity duration-300 ${
+              chromeHidden ? 'opacity-0 pointer-events-none' : 'opacity-100'
+            }`}
+          >
             <button
               type="button"
               onClick={restart}
@@ -261,6 +286,7 @@ function AboutExperience({ onClose }) {
             <button
               type="button"
               onClick={() => {
+                setChromeHidden(false);
                 setPausedByUser(false);
                 setPlaying((p) => !p);
               }}
@@ -271,7 +297,11 @@ function AboutExperience({ onClose }) {
           </div>
         </div>
 
-        <div className="relative z-10 h-px w-full bg-line">
+        <div
+          className={`relative z-10 h-px w-full bg-line transition-opacity duration-300 ${
+            chromeHidden ? 'opacity-0' : 'opacity-100'
+          }`}
+        >
           <div
             className="h-full bg-ink transition-[width] duration-150 ease-linear"
             style={{ width: `${progress}%` }}
@@ -279,31 +309,30 @@ function AboutExperience({ onClose }) {
         </div>
 
         <div className="relative flex-1 min-h-0">
-          <div className="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 z-10 flex justify-center">
+          <div
+            className={`pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 z-10 flex justify-center transition-opacity duration-300 max-sm:hidden ${
+              chromeHidden ? 'opacity-0' : 'opacity-100'
+            }`}
+          >
             <div className="w-full max-w-[720px] px-8 max-sm:px-5">
               <div className="h-px bg-line" />
             </div>
           </div>
 
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-36 z-10 bg-linear-to-b from-white via-white/80 to-transparent" />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 z-10 bg-linear-to-t from-white via-white/85 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-36 z-10 bg-linear-to-b from-white via-white/80 to-transparent max-sm:h-24" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 z-10 bg-linear-to-t from-white via-white/85 to-transparent max-sm:h-28" />
 
           <div
             ref={viewportRef}
             onScroll={handleScroll}
-            onPointerDown={() => {
-              setPlaying(false);
-              setPausedByUser(true);
-            }}
-            onWheel={() => {
-              setPlaying(false);
-              setPausedByUser(true);
-            }}
-            className="h-full overflow-y-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            onWheel={takeManualControl}
+            onTouchMove={takeManualControl}
+            className="h-full overflow-y-auto overscroll-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             <div className="mx-auto max-w-[720px] px-8 max-sm:px-5 pt-[20vh] pb-[45vh]">
-              <p className="text-[13px] tracking-[0.16em] uppercase text-muted mb-10 text-center">
-                Take your time · Space to pause · Esc to leave
+              <p className="text-[13px] tracking-[0.16em] uppercase text-muted mb-10 text-center max-sm:mb-8">
+                <span className="max-sm:hidden">Take your time · Space to pause · Esc to leave</span>
+                <span className="hidden max-sm:inline">Scroll anytime to take control</span>
               </p>
 
               <div className="flex flex-col gap-16 max-sm:gap-12">
@@ -333,9 +362,13 @@ function AboutExperience({ onClose }) {
           </div>
         </div>
 
-        <div className="relative z-10 flex items-center justify-between gap-4 px-8 py-4 max-sm:px-5 border-t border-line text-[12px] text-muted">
+        <div
+          className={`relative z-10 flex items-center justify-between gap-4 px-8 py-4 max-sm:px-5 border-t border-line text-[12px] text-muted transition-opacity duration-300 ${
+            chromeHidden ? 'opacity-40' : 'opacity-100'
+          }`}
+        >
           <span>{Math.round(progress)}% read</span>
-          <span className="max-sm:hidden">Scroll anytime to take control</span>
+          <span className="max-sm:hidden">{chromeHidden ? 'Manual scroll' : 'Scroll anytime to take control'}</span>
           <span>{playing && !pausedByUser ? 'Auto-playing' : 'Paused'}</span>
         </div>
       </div>
@@ -498,21 +531,21 @@ export default function About() {
             <FadeWords text="About" className="text-sm text-muted mb-6" wordDelay={60} />
 
             <FadeWords
-              text="I'm Godspower Ufot, a frontend engineer and blockchain engineer focused on building beautiful interfaces and useful products."
+              text="I'm Godspower Ufot, a frontend engineer. I build interfaces people actually use , and I often dabble in blockchain so products stay seamless from UI to on-chain."
               className="text-[clamp(22px,2.8vw,32px)] font-medium tracking-tight leading-snug text-ink"
               delay={100}
               wordDelay={38}
             />
 
             <FadeWords
-              text="I build audited smart contracts that work hand in hand with dApps and clean frontend. Over the past few years I've shipped products across AI, blockchain, and SaaS, leading teams and delivering production-ready applications."
+              text="Whether it's a Web2 product or a dApp with audited contracts, I care about clear communication, ownership, and making complex systems feel simple."
               className="mt-7 text-[clamp(16px,1.7vw,18px)] text-muted leading-relaxed"
               delay={180}
               wordDelay={30}
             />
 
             <FadeWords
-              text="I love team communication, solving hard problems, and turning complex ideas into simple experiences."
+              text="Off the clock I read, solve problems, and play games , habits that keep me curious and sharp when I ship."
               className="mt-5 text-[clamp(16px,1.7vw,18px)] text-muted leading-relaxed"
               delay={240}
               wordDelay={36}

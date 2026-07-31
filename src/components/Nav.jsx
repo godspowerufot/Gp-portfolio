@@ -84,15 +84,15 @@ export default function Nav({ solid = false }) {
             </span>
           </Link>
 
-          <nav className="flex items-center gap-9 max-sm:hidden" aria-label="Primary">
+          <nav className="flex items-center gap-10 max-sm:hidden" aria-label="Primary">
             {links.map(({ label, hash }) => (
               <Link
                 key={label}
                 to={`/${hash}`}
-                className="group relative text-sm text-muted hover:text-ink transition-colors duration-250"
+                className="group relative text-[16px] font-medium tracking-tight text-muted hover:text-ink transition-colors duration-300"
               >
                 {label}
-                <span className="absolute left-0 -bottom-0.5 h-px w-full bg-ink scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-(--ease-out-expo)" />
+                <span className="absolute left-0 -bottom-1 h-px w-full origin-left scale-x-0 bg-ink transition-transform duration-[850ms] ease-(--ease-out-expo) group-hover:scale-x-100" />
               </Link>
             ))}
           </nav>
@@ -132,16 +132,21 @@ export default function Nav({ solid = false }) {
 
       <nav
         aria-hidden={!open}
-        className={`fixed inset-0 z-90 mobile-nav-drawer bg-white pt-28 px-6 pb-10 flex-col gap-2 hidden max-sm:flex transition-transform duration-450 ease-(--ease-out-expo) ${
-          open ? 'translate-y-0' : '-translate-y-full'
+        className={`fixed inset-0 z-90 mobile-nav-drawer bg-white pt-28 px-6 pb-10 flex-col gap-1 hidden max-sm:flex transition-[opacity,visibility] duration-400 ease-(--ease-out-expo) ${
+          open ? 'opacity-100 visible pointer-events-auto' : 'opacity-0 invisible pointer-events-none'
         }`}
       >
-        {links.map(({ label, hash }) => (
+        {links.map(({ label, hash }, i) => (
           <Link
             key={label}
             to={`/${hash}`}
             onClick={() => setOpen(false)}
-            className="text-[28px] font-medium tracking-tight py-3 border-b border-line text-ink"
+            style={{
+              transitionDelay: open ? `${90 + i * 75}ms` : `${(links.length - i) * 35}ms`,
+            }}
+            className={`text-[28px] font-medium tracking-tight py-3 border-b border-line text-ink transition-[opacity,transform] duration-[550ms] ease-(--ease-out-expo) ${
+              open ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-5'
+            }`}
           >
             {label}
           </Link>
@@ -149,7 +154,12 @@ export default function Nav({ solid = false }) {
         <button
           type="button"
           onClick={openResume}
-          className="text-left text-[28px] font-medium tracking-tight py-3 border-b border-line text-ink"
+          style={{
+            transitionDelay: open ? `${90 + links.length * 75}ms` : '0ms',
+          }}
+          className={`text-left text-[28px] font-medium tracking-tight py-3 border-b border-line text-ink transition-[opacity,transform] duration-[550ms] ease-(--ease-out-expo) ${
+            open ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-5'
+          }`}
         >
           Resume
         </button>

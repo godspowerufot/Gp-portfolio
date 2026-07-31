@@ -4,7 +4,7 @@ export const resume = {
   name: 'GODSPOWER UFOT',
   title: 'Frontend Engineer  |  Blockchain Engineer (EVM)',
   contact:
-    'Nigeria (Remote)  ·  +234 905 838 6152  ·  +234 707 281 5425  ·  ufotgodspower8@gmail.com',
+   '  +234 905 838 6152  ·  +234 707 281 5425  ·  ufotgodspower8@gmail.com',
   links: [
     { label: 'X', href: 'https://x.com/ufotgodspower8' },
     { label: 'Github', href: 'https://github.com/godspowerufot' },
@@ -17,6 +17,14 @@ export const resume = {
     'Frontend & Product: Tailwind CSS, Responsive UI, Design Systems, Component Architecture, SEO, Performance Optimization',
     'Integrations & Infra: Stripe, Paystack, WebSockets, Zoom API, YouTube API, Git/GitHub, REST APIs, Firebase',
     'Blockchain: Smart Contracts, Token Presale, Vesting & Allocation, Gas Relayers / Paymaster Patterns, BNB Smart Chain, Monad, Wallet UX',
+  ],
+  softSkills: [
+    'Team communication and cross-functional collaboration',
+    'Problem solving under ambiguous product requirements',
+    'Ownership and end-to-end delivery',
+    'Mentorship, PR reviews, and raising engineering quality',
+    'Clear written and verbal communication with non-technical stakeholders',
+    'Adaptability across Web2 product work and Web3 systems',
   ],
   experience: [
     {

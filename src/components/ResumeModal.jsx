@@ -90,6 +90,18 @@ export default function ResumeModal({ open, onClose }) {
             ))}
           </ul>
 
+          <SectionTitle>Soft Skills</SectionTitle>
+          <ul className="flex flex-col gap-1.5">
+            {resume.softSkills.map((skill) => (
+              <li
+                key={skill}
+                className="relative pl-4 text-[13.5px] text-muted leading-relaxed before:content-[''] before:absolute before:left-0 before:top-[0.55em] before:w-1.5 before:h-px before:bg-ink"
+              >
+                {skill}
+              </li>
+            ))}
+          </ul>
+
           <SectionTitle>Professional Experience</SectionTitle>
           <div className="flex flex-col gap-6">
             {resume.experience.map((job) => (
